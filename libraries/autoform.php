@@ -89,7 +89,7 @@ class Autoform {
 		else {
 			$label->position = 'left'; // everything else, labels default to the left
 		}
-		$label->extra = array();
+		$label->extra = array('class'=>'col-sm-2 control-label');
 		
 		// set all field attributes
 		foreach ($input as $key=>$value) 
@@ -569,13 +569,13 @@ class Autoform {
 							$output .= form_label($field->label->content . $this->dropdown($field), $field->id, $field->label->extra);
 						break;
 						case 'right':
-							$output .= $this->dropdown($field);
+							$output .= '<div class="col-sm-10">'.$this->dropdown($field).'</div>';
 							$output .= ' '.form_label($field->label->content, $field->id, $field->label->extra);
 						break;
 						case 'left':
 						default:
 							$output .= form_label($field->label->content, $field->id, $field->label->extra).' ';
-							$output .= $this->dropdown($field);
+							$output .= '<div class="col-sm-10">'.$this->dropdown($field).'</div>';
 						break;
 					}
 				}
@@ -593,16 +593,16 @@ class Autoform {
 					switch ($field->label->position) 
 					{
 						case 'wrap':
-							$output .= form_label($field->label->content . $this->checked_input($field), $field->id, $field->label->extra);
+							$output .= form_label($field->label->content . $this->checked_input($field), $field->id, $field->label->extra)."\n";
 						break;
 						case 'right':
-							$output .= $this->checked_input($field);
-							$output .= ' '.form_label($field->label->content, $field->id, $field->label->extra);
+							$output .= '<div class="col-sm-10">'.$this->checked_input($field).'</div>';
+							$output .= ' '.form_label($field->label->content, $field->id, $field->label->extra)."\n";
 						break;
 						case 'left':
 						default:
-							$output .= form_label($field->label->content, $field->id, $field->label->extra).' ';
-							$output .= $this->checked_input($field);
+							$output .= form_label($field->label->content, $field->id, $field->label->extra).' '."\n";
+							$output .= '<div class="col-sm-10">'.$this->checked_input($field).'</div>';
 						break;
 					}
 				}
@@ -617,16 +617,16 @@ class Autoform {
 					switch ($field->label->position) 
 					{
 						case 'wrap':
-							$output .= form_label($field->label->content . $this->textarea($field), $field->id, $field->label->extra);
+							$output .= form_label($field->label->content . $this->textarea($field), $field->id, $field->label->extra)."\n";
 						break;
 						case 'right':
-							$output .= $this->textarea($field);
-							$output .= ' '.form_label($field->label->content, $field->id, $field->label->extra);
+							$output .= '<div class="col-sm-10">'.$this->textarea($field).'</div>';
+							$output .= ' '.form_label($field->label->content, $field->id, $field->label->extra)."\n";
 						break;
 						case 'left':
 						default:
-							$output .= form_label($field->label->content, $field->id, $field->label->extra).' ';
-							$output .= $this->textarea($field);
+							$output .= form_label($field->label->content, $field->id, $field->label->extra).' '."\n";
+							$output .= '<div class="col-sm-10">'.$this->textarea($field).'</div>';
 						break;
 					}
 				}
@@ -652,21 +652,21 @@ class Autoform {
 					switch ($field->label->position) 
 					{
 						case 'wrap':
-							$output .= form_label($field->label->content . $this->input($field), $field->id, $field->label->extra);
+							$output .= form_label($field->label->content . $this->input($field), $field->id, $field->label->extra)."\n";
 						break;
 						case 'right':
-							$output .= $this->input($field);
-							$output .= ' '.form_label($field->label->content, $field->id, $field->label->extra);
+							$output .= '<div class="col-sm-10">'.$this->input($field).'</div>';
+							$output .= ' '.form_label($field->label->content, $field->id, $field->label->extra)."\n";
 						break;
 						case 'left':
 						default:
-							$output .= form_label($field->label->content, $field->id, $field->label->extra).' ';
-							$output .= $this->input($field);
+							$output .= form_label($field->label->content, $field->id, $field->label->extra).' '."\n";
+							$output .= '<div class="col-sm-10">'.$this->input($field).'</div>';
 						break;
 					}
 				}
 				else {
-					$output .= $this->input($field);
+					$output .= '<div class="col-sm-10">'.$this->input($field).'</div>';
 				}
 			break;
 		}
@@ -674,7 +674,7 @@ class Autoform {
 		// add "after" string to output
 		if (isset($this->after[$field->id])) $output .= $this->after[$field->id];
 		
-		return $output."\n";
+		return "<div class=\"form-group\">\n".$output."</div>\n";
 		
 	}
 	
@@ -920,10 +920,9 @@ class Autoform {
 	{
 		// open form
 		$output = $this->open($action, $attr, $multipart);
-		
+
 		// add the fields
 		$output .= $this->fields();
-		
 		// add buttons
 		$output .= $this->buttons();
 		
